@@ -1,3 +1,6 @@
+<?php
+require 'fungsi_kas_awal.php';
+?>
 <!doctype html>
 <html lang="en">
 
@@ -57,52 +60,60 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td scope="row">1</td>
-            <td>3987</td>
-            <td>208187</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>
-              <a href="ubah.php" class="badge badge-info mr-1">Ubah</a>
-              <!-- Button trigger modal -->
-              <a href="#" class="badge badge-danger" data-toggle="modal" data-target="#modelId">Hapus</a>
+          <?php
+          $datas = tampil("SELECT * FROM saldo_awal");
+          $i = 1;
+          foreach ($datas as $data) :
+          ?>
+            <tr>
+              <td scope="row"><?= $i++; ?></td>
+              <td><?= $data['saldo_bank']; ?></td>
+              <td><?= $data['saldo_tunai']; ?></td>
+              <td><?= $data['saldo_awl_pph21']; ?></td>
+              <td><?= $data['saldo_awl_pph22']; ?></td>
+              <td><?= $data['saldo_awl_pb1']; ?></td>
+              <td><?= $data['saldo_awl_ppn']; ?></td>
+              <td>
+                <a href="ubah.php" class="badge badge-info mr-1">Ubah</a>
+                <!-- Button trigger modal -->
+                <a href="#" class="badge badge-danger" data-toggle="modal" data-target="#modelId">Hapus</a>
 
-              <!-- Modal -->
-              <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Peringatan!</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="container-fluid">
-                        Apakah anda yakin ingin menghapus data ini ?
+                <!-- Modal -->
+                <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Peringatan!</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                      <button type="button" class="btn btn-primary">Ya</button>
+                      <div class="modal-body">
+                        <div class="container-fluid">
+                          Apakah anda yakin ingin menghapus data ini ?
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary">Ya</button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <script>
-                $('#exampleModal').on('show.bs.modal', event => {
-                  var button = $(event.relatedTarget);
-                  var modal = $(this);
-                  // Use above variables to manipulate the DOM
+                <script>
+                  $('#exampleModal').on('show.bs.modal', event => {
+                    var button = $(event.relatedTarget);
+                    var modal = $(this);
+                    // Use above variables to manipulate the DOM
 
-                });
-              </script>
-            </td>
-          </tr>
+                  });
+                </script>
+              </td>
+            <?php
+          endforeach;
+            ?>
+            </tr>
         </tbody>
       </table>
     </div>
