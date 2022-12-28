@@ -12,6 +12,13 @@ require 'fungsi_kas_awal.php';
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <style>
+    h3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
 </head>
 
 <body>
@@ -39,83 +46,88 @@ require 'fungsi_kas_awal.php';
       </ul>
     </div>
   </nav>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-xs-8 mt-2">
+  <div class="container-fluid">
+    <div class="row justify-content-center align-items-center g-2">
+      <div class="col-md-8 mt-3 me-auto">
         <h3>Buku Kas Awal</h3>
       </div>
     </div>
-    <div class="container justify-content-center mt-2">
-      <table class="table table-hover">
-        <thead class="thead-default">
-          <tr>
-            <th>No</th>
-            <th>Saldo Bank</th>
-            <th>Saldo Tunai</th>
-            <th>Saldo Pajak Pph21</th>
-            <th>Saldo Pajak Pph22</th>
-            <th>Saldo Pajak Pb1</th>
-            <th>Saldo Pajak PPn</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          $datas = tampil("SELECT * FROM saldo_awal");
-          $i = 1;
-          foreach ($datas as $data) :
-          ?>
+    <div class="row justify-content-center align-items-center g-2">
+      <div class="col-md-10 mt-3 me-auto">
+        <!-- Disini Tabel -->
+        <table class="table table-hover">
+          <thead class="thead-default">
             <tr>
-              <td scope="row"><?= $i++; ?></td>
-              <td><?= $data['saldo_bank']; ?></td>
-              <td><?= $data['saldo_tunai']; ?></td>
-              <td><?= $data['saldo_awl_pph21']; ?></td>
-              <td><?= $data['saldo_awl_pph22']; ?></td>
-              <td><?= $data['saldo_awl_pb1']; ?></td>
-              <td><?= $data['saldo_awl_ppn']; ?></td>
-              <td>
-                <a href="ubah.php" class="badge badge-info mr-1">Ubah</a>
-                <!-- Button trigger modal -->
-                <a href="#" class="badge badge-danger" data-toggle="modal" data-target="#modelId">Hapus</a>
+              <th>No</th>
+              <th>Bulan</th>
+              <th>Saldo Bank</th>
+              <th>Saldo Tunai</th>
+              <th>Saldo Pajak Pph21</th>
+              <th>Saldo Pajak Pph22</th>
+              <th>Saldo Pajak Pb1</th>
+              <th>Saldo Pajak PPn</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $datas = tampil("SELECT * FROM saldo_awal");
+            $i = 1;
+            foreach ($datas as $data) :
+            ?>
+              <tr>
+                <td scope="row"><?= $i++; ?></td>
+                <td><?= $data['bulan']; ?></td>
+                <td><?= $data['saldo_bank']; ?></td>
+                <td><?= $data['saldo_tunai']; ?></td>
+                <td><?= $data['saldo_awl_pph21']; ?></td>
+                <td><?= $data['saldo_awl_pph22']; ?></td>
+                <td><?= $data['saldo_awl_pb1']; ?></td>
+                <td><?= $data['saldo_awl_ppn']; ?></td>
+                <td>
+                  <a href="ubah.php" class="badge badge-info mr-1">Ubah</a>
+                  <!-- Button trigger modal -->
+                  <a href="#" class="badge badge-danger" data-toggle="modal" data-target="#modelId">Hapus</a>
 
-                <!-- Modal -->
-                <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title">Peringatan!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="container-fluid">
-                          Apakah anda yakin ingin menghapus data ini ?
+                  <!-- Modal -->
+                  <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Peringatan!</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
                         </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                        <button type="button" class="btn btn-primary">Ya</button>
+                        <div class="modal-body">
+                          <div class="container-fluid">
+                            Apakah anda yakin ingin menghapus data ini ?
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                          <button type="button" class="btn btn-primary">Ya</button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <script>
-                  $('#exampleModal').on('show.bs.modal', event => {
-                    var button = $(event.relatedTarget);
-                    var modal = $(this);
-                    // Use above variables to manipulate the DOM
+                  <script>
+                    $('#exampleModal').on('show.bs.modal', event => {
+                      var button = $(event.relatedTarget);
+                      var modal = $(this);
+                      // Use above variables to manipulate the DOM
 
-                  });
-                </script>
-              </td>
-            <?php
-          endforeach;
-            ?>
-            </tr>
-        </tbody>
-      </table>
+                    });
+                  </script>
+                </td>
+              <?php
+            endforeach;
+              ?>
+              </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <!-- Optional JavaScript -->
