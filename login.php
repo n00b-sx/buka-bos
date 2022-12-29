@@ -27,17 +27,13 @@ require 'functions.php';
     <div class="row">
       <?php
       if (isset($_POST['login'])) {
-        $tampil = tampil("SELECT * FROM tbl_user");
-        if ($_POST['username'] == $tampil['username'] && $_POST['password'] == $tampil['password']) {
-          echo "<script>document.location.href='index.php'</script>";
-        } else {
-      ?>
+        $login = login($_POST);
+        if ($login['error']) : ?>
           <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            Anda salah memasukan username atau password.
+            <?= $login['pesan']; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
-      <?php
-        }
+      <?php endif;
       }
       ?>
       <div class="card w-100">
