@@ -45,3 +45,42 @@ function login($data)
     ];
   }
 }
+
+function regsitrasi($data)
+{
+  $conn = koneksi();
+
+  // Mengambil variabel yang dikirimkan dari form registrasi
+  $username = strtolower(stripslashes($data['username']));
+  $password = mysqli_real_escape_string($conn, $data['password']);
+  $password_confirm = mysqli_real_escape_string($conn, $data['password_confirm']);
+
+  // Mengecek username sudah ada di dalam tabel atau belum
+  $result = mysqli_query($conn, "SELECT username FROM tbl_user WHERE username='$username'");
+  if (mysqli_fetch_assoc($result)) {
+    return [
+      "notif" => "error",
+      "pesan" => "Username sudah digunakan"
+    ];
+  }
+
+  //Mengecek kembali password 1 dan 2
+  if ($password !== $password_confirm) {
+    return [
+      "notif" => "error",
+      "pesan" => "Password yang dimasukan tidak sesuai"
+    ];
+  }
+
+  // Mengenkripsi password
+  $password = password_hash($password, PASSWORD_DEFAULT);
+
+  // Menyimpan user ke database
+  mysqli_query($conn, "INSERT INTO tbl_user VALUES (null, '$username', '$password','')");
+  if (mysqli_affected_rows($conn) > 0) {
+    return [
+      "notif" => "sukes",
+      "pesan" => "User baru berhasil ditambahkan"
+    ];
+  }
+}
