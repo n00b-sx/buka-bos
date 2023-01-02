@@ -1,5 +1,29 @@
 <?php
 require 'functions.php';
+
+if (isset($_POST['login'])) {
+
+  $conn = koneksi();
+
+  // Ambil variabel $_POST
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+
+  // Cek username apakah cocok atau tidak
+  $result = mysqli_query($conn, "SELECT * FROM tbl_user WHERE username='$username'");
+
+  if (mysqli_num_rows($result) == 1) {
+    // Cek password apakah sama dengan yang ada di tabel tbl_user
+    $row = mysqli_fetch_assoc($result);
+    if (password_verify($password, $row['password'])) {
+      echo "<script>
+            document.location.href = 'index.php';
+            </script>";
+    }
+  }
+
+  $error = true;
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,17 +49,12 @@ require 'functions.php';
 
   <main>
     <div class="row">
-      <?php
-      if (isset($_POST['login'])) {
-        $login = login($_POST);
-        if ($login['error']) : ?>
-          <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <?= $login['pesan']; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-      <?php endif;
-      }
-      ?>
+      <?php if (isset($error)) : ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <p>Username dan Password yang anda masukan salah</p>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      <?php endif; ?>
       <div class="card w-100">
         <div class="card-body">
           <h5 class="card-title">Login</h5>

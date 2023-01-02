@@ -15,16 +15,43 @@ function tampil($query)
 
   $result = mysqli_query($conn, $query);
 
-  if (mysqli_num_rows($result) == 1) {
-    return mysqli_fetch_assoc($result);
-  } else {
+  if (mysqli_num_rows($result) > 0) {
     $rows = [];
     while ($row = mysqli_fetch_assoc($result)) {
       $rows[] = $row;
     }
+    return $rows;
+  } else {
+    echo mysqli_error($conn);
   }
-  echo mysqli_error($conn);
-  return $rows;
+}
+
+function hapus($id)
+{
+  $conn = koneksi();
+
+  mysqli_query($conn, "DELETE FROM saldo_awal WHERE id=$id");
+
+  return mysqli_affected_rows($conn);
+}
+
+function ubah($id)
+{
+  $conn = koneksi();
+
+  $id_saldo_awl = $id['id'];
+  $bulan = $id['bulan'];
+  $saldo_bank = $id['saldo_bank'];
+  $saldo_tunai = $id['saldo_tunai'];
+  $saldo_awl_pph21 = $id['saldo_awl_pph21'];
+  $saldo_awl_pph22 = $id['saldo_awl_pph22'];
+  $saldo_awl_pb1 = $id['saldo_awl_pb1'];
+  $saldo_awl_ppn = $id['saldo_awl_ppn'];
+
+  $query = "UPDATE saldo_awal SET bulan='$bulan', saldo_bank = '$saldo_bank', saldo_tunai = '$saldo_tunai', saldo_awl_pph21 = '$saldo_awl_pph21', saldo_awl_pph22 = '$saldo_awl_pph22', saldo_awl_pb1 = '$saldo_awl_pb1', saldo_awl_ppn = '$saldo_awl_ppn' WHERE id = $id_saldo_awl";
+  mysqli_query($conn, $query);
+
+  return mysqli_affected_rows($conn) or die(mysqli_error($conn));
 }
 
 function login($data)
