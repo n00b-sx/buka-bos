@@ -26,6 +26,25 @@ function tampil($query)
   }
 }
 
+function simpan($data)
+{
+  $conn = koneksi();
+
+  $bulan = $data['bulan'];
+  $saldo_bank = $data['saldo_bank'];
+  $saldo_tunai = $data['saldo_tunai'];
+  $saldo_awl_pph21 = $data['saldo_awl_pph21'];
+  $saldo_awl_pph22 = $data['saldo_awl_pph22'];
+  $saldo_awl_pb1 = $data['saldo_awl_pb1'];
+  $saldo_awl_ppn = $data['saldo_awl_ppn'];
+
+  $query = "INSERT INTO saldo_awal VALUES(NULL,'$bulan',$saldo_bank, $saldo_tunai, $saldo_awl_pph21, $saldo_awl_pph22, $saldo_awl_pb1, $saldo_awl_ppn)";
+
+  mysqli_query($conn, $query);
+
+  return mysqli_affected_rows($conn);
+}
+
 function hapus($id)
 {
   $conn = koneksi();
