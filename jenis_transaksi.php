@@ -44,7 +44,7 @@ require 'functions.php';
             <td><?= $row['jenis_transaksi']; ?></td>
             <td>
               <p>
-                <a href="edit.php">Edit</a> |
+                <a href="edit.php?jenis=jenis_transaksi&id=<?= $row['id']; ?>">Edit</a> |
                 <a href="hapus.php">Hapus</a>
               </p>
             </td>

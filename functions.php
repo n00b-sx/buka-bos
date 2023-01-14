@@ -44,3 +44,18 @@ function tambah_jenis_transaksi($post)
 
   return mysqli_affected_rows($conn);
 }
+
+function edit_jenis_transaksi($post)
+{
+  $conn = koneksi();
+
+  $id = $post['id'];
+  $kode_transaksi = $post['kode_transaksi'];
+  $kode_rekening = $post['kode_rekening'];
+  $jenis_transaksi = $post['jenis_transaksi'];
+
+  $sql = "UPDATE jenis_transaksi SET kode_transaksi='$kode_transaksi', kode_rekening='$kode_rekening', jenis_transaksi='$jenis_transaksi' WHERE id=$id";
+  mysqli_query($conn, $sql);
+
+  return mysqli_affected_rows($conn);
+}
