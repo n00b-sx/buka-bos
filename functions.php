@@ -59,3 +59,13 @@ function edit_jenis_transaksi($post)
 
   return mysqli_affected_rows($conn);
 }
+
+function hapus_jenis_transaksi($id)
+{
+  $conn = koneksi();
+
+  $sql = "DELETE FROM jenis_transaksi WHERE id=$id";
+  mysqli_query($conn, $sql);
+
+  return mysqli_affected_rows($conn);
+}

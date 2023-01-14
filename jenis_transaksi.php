@@ -45,7 +45,7 @@ require 'functions.php';
             <td>
               <p>
                 <a href="edit.php?jenis=jenis_transaksi&id=<?= $row['id']; ?>">Edit</a> |
-                <a href="hapus.php">Hapus</a>
+                <a onclick="return confirm('Apakah anda yakin ingin menghapus <?= $row['jenis_transaksi']; ?>')" href="hapus.php?jenis=jenis_transaksi&id=<?= $row['id']; ?>">Hapus</a>
               </p>
             </td>
           </tr>
