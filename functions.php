@@ -29,3 +29,18 @@ function tampil($query)
 
   return $rows;
 }
+
+function tambah_jenis_transaksi($post)
+{
+  $conn = koneksi();
+
+
+  $kode_transaksi = $post['kode_transaksi'];
+  $kode_rekening = $post['kode_rekening'];
+  $jenis_transaksi = $post['jenis_transaksi'];
+
+  $sql = "INSERT INTO jenis_transaksi VALUES (NULL,'$kode_transaksi','$kode_rekening','$jenis_transaksi')";
+  mysqli_query($conn, $sql);
+
+  return mysqli_affected_rows($conn);
+}
