@@ -20,7 +20,7 @@ require 'functions.php';
   </header>
   <main>
     <h1>Input Data Jenis Transaksi</h1>
-    <a href="tambah.php?tambah=jenis_transaksi">Tambah Data</a><br>
+    <a href="tambah.php?tambah=program">Tambah Data</a><br>
     <table class="table">
       <thead>
         <tr>
