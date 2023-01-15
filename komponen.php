@@ -8,7 +8,7 @@ require 'functions.php';
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Program</title>
+  <title>Data Komponen</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,29 +19,29 @@ require 'functions.php';
     </ul>
   </header>
   <main>
-    <h1>Data Program</h1>
-    <a href="tambah.php?tambah=program">Tambah Data</a><br>
+    <h1>Data Komponen</h1>
+    <a href="tambah.php?tambah=komponen">Tambah Data</a><br>
     <table class="table">
       <thead>
         <tr>
           <th>No.</th>
-          <th>Nama Program</th>
+          <th>Nama Komponen</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
         <?php
-        $rows = tampil("SELECT * FROM program");
+        $rows = tampil("SELECT * FROM komponen");
         $i = 1;
         foreach ($rows as $row) :
         ?>
           <tr>
             <td><?= $i++ ?></td>
-            <td><?= $row['nama_program']; ?></td>
+            <td><?= $row['nama_komponen']; ?></td>
             <td>
               <p>
-                <a href="edit.php?jenis=program&id=<?= $row['id']; ?>">Edit</a> |
-                <a onclick="return confirm('Apakah anda yakin ingin menghapus <?= $row['nama_program']; ?>')" href="hapus.php?jenis=program&id=<?= $row['id']; ?>">Hapus</a>
+                <a href="edit.php?jenis=komponen&id=<?= $row['id']; ?>">Edit</a> |
+                <a onclick="return confirm('Apakah anda yakin ingin menghapus <?= $row['nama_komponen']; ?>')" href="hapus.php?jenis=komponen&id=<?= $row['id']; ?>">Hapus</a>
               </p>
             </td>
           </tr>

@@ -13,6 +13,7 @@
     <ul>
       <li><a href="jenis_transaksi.php">Jenis Transaksi</a></li>
       <li><a href="program.php">Program</a></li>
+      <li><a href="komponen.php">Komponen</a></li>
     </ul>
   </header>
   <main>

@@ -12,6 +12,12 @@ if (isset($_POST['edit_jenis_transaksi'])) {
     document.location.href='program.php';
     </script>";
   }
+} elseif (isset($_POST['edit_komponen'])) {
+  if (edit_komponen($_POST) > 0) {
+    echo "<script>alert('Data berhasil diubah');
+    document.location.href='komponen.php';
+    </script>";
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -73,6 +79,23 @@ if (isset($_POST['edit_jenis_transaksi'])) {
       </form>
       <br>
       <a href="program.php">Lihat data program</a>
+    <?php endif; ?>
+    <?php
+    if ($_GET['jenis'] == "komponen") :
+      $id = $_GET['id'];
+      $row = tampil("SELECT * FROM komponen WHERE id='$id'")[0];
+    ?>
+      <form action="" method="POST">
+        <span>
+          <label for="nama_komponen">Nama Komponen</label>
+          <input type="text" name="nama_komponen" id="nama_komponen" value="<?= $row['nama_komponen']; ?>">
+        </span>
+        <br>
+        <input type="hidden" name="id" value="<?= $row['id']; ?>">
+        <input type="submit" value="Simpan" name="edit_komponen">
+      </form>
+      <br>
+      <a href="komponen.php">Lihat data komponen</a>
     <?php endif; ?>
   </main>
   <footer></footer>

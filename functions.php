@@ -105,3 +105,41 @@ function hapus_program($id)
 
   return mysqli_affected_rows($conn);
 }
+
+// Fungsi Komponen
+function tambah_komponen($post)
+{
+  $conn = koneksi();
+
+
+  $nama_komponen = $post['nama_komponen'];
+
+  $sql = "INSERT INTO komponen VALUES (NULL,'$nama_komponen')";
+  mysqli_query($conn, $sql);
+
+  return mysqli_affected_rows($conn);
+}
+
+function edit_komponen($post)
+{
+  $conn = koneksi();
+
+  $id = $post['id'];
+  $nama_komponen = $post['nama_komponen'];
+
+  $sql = "UPDATE komponen SET nama_komponen='$nama_komponen' WHERE id=$id";
+  mysqli_query($conn, $sql);
+
+  return mysqli_affected_rows($conn);
+}
+
+function hapus_komponen($id)
+{
+  $conn = koneksi();
+
+  $sql = "DELETE FROM komponen WHERE id=$id";
+  mysqli_query($conn, $sql);
+
+  return mysqli_affected_rows($conn);
+}
+// Tutup Fungsi Komponen

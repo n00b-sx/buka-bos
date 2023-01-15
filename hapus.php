@@ -15,4 +15,11 @@ if ($_GET['jenis'] == "jenis_transaksi") {
     document.location.href='program.php';
     </script>";
   }
+} elseif ($_GET['jenis'] == "komponen") {
+  if (hapus_komponen($_GET['id']) > 0) {
+    echo "<script>
+    alert('Data berhasil dihapus');
+    document.location.href='komponen.php';
+    </script>";
+  }
 }

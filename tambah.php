@@ -8,6 +8,10 @@ if (isset($_POST['tambah_jenis_transaksi'])) {
   if (tambah_program($_POST) > 0) {
     echo "<script>alert('Data berhasil ditambahkan');</script>";
   }
+} elseif (isset($_POST['tambah_komponen'])) {
+  if (tambah_komponen($_POST) > 0) {
+    echo "<script>alert('Data berhasil ditambahkan');</script>";
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -63,6 +67,20 @@ if (isset($_POST['tambah_jenis_transaksi'])) {
       </form>
       <br>
       <a href="program.php">Lihat data jenis transaksi</a>
+    <?php endif; ?>
+    <?php
+    if ($_GET['tambah'] == "komponen") :
+    ?>
+      <form action="" method="POST">
+        <span>
+          <label for="nama_komponen">Nama Komponen</label>
+          <input type="text" name="nama_komponen" id="nama_komponen">
+        </span>
+        <br>
+        <input type="submit" value="Tambah" name="tambah_komponen">
+      </form>
+      <br>
+      <a href="komponen.php">Lihat data jenis transaksi</a>
     <?php endif; ?>
   </main>
   <footer></footer>
