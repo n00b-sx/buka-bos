@@ -12,9 +12,9 @@
   <header>
     <nav>
       <ul>
-        <li><a href="index.php">Beranda</a></li>
-        <li><a href="data.php">Data</a></li>
-        <li><a href="transaksi.php">transaksi</a></li>
+        <li><a href="transaksi_belanja.php">Transaksi Belanja</a></li>
+        <li><a href="transaksi_pajak.php">Transaksi Pajak</a></li>
+        <li><a href="transaksi_jasa_giro.php">Transaksi Jasa Giro</a></li>
       </ul>
     </nav>
   </header>
