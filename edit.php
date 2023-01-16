@@ -97,6 +97,102 @@ if (isset($_POST['edit_jenis_transaksi'])) {
       <br>
       <a href="komponen.php">Lihat data komponen</a>
     <?php endif; ?>
+    <?php
+    if ($_GET['jenis'] == "belanja") :
+      $id = $_GET['id'];
+      $row = tampil("SELECT * FROM transaksi WHERE id=$id")[0];
+    ?>
+      <form action="" method="post">
+        <p>Jenis Transaksi :</p>
+        <input type="radio" name="jenis_belanja" id="tunai" <?php if ($row['jenis_belanja'] == 'Tunai') {
+                                                              echo 'checked';
+                                                            } ?>>
+        <label for="tunai">Tunai</label>
+        <input type="radio" name="jenis_belanja" id="bank" <?php if ($row['jenis_belanja'] == 'Bank') {
+                                                              echo 'checked';
+                                                            } ?>>
+        <label for="bank">Bank</label>
+        <br><br>
+        <span>
+          <label for="tgl_transaksi">Tanggal Transaksi</label>
+          <input value="<?= $row['tgl_transaksi']; ?>" type="date" name="tgl_transaksi" id="tgl_transaksi">
+        </span>
+        <br><br>
+        <span>
+          <label for="nomor_bukti">Nomor Bukti</label>
+          <input value="<?= $row['nomor_bukti']; ?>" type="text" name="nomor_bukti" id="nomor_bukti">
+        </span>
+        <span>
+          <label for="jenis_transaksi">Jenis Belanja</label>
+          <select name="jenis_transaksi">
+            <?php
+            $id_jenis_transaksi = $row['id_jenis_transaksi'];
+            $rows = tampil("SELECT * FROM jenis_transaksi WHERE kode_transaksi = 'Belanja'");
+            $rows2 = tampil("SELECT * FROM jenis_transaksi WHERE id=$id_jenis_transaksi")[0];
+            foreach ($rows as $row) :
+            ?>
+              <option <?php if ($row['id'] == $rows2['id']) {
+                        echo "Selected";
+                      } ?> <?php $selected; ?> value="<?= $row['id']; ?>"><?= $row['jenis_transaksi']; ?></option>
+            <?php endforeach; ?>
+          </select>
+        </span>
+        <span>
+          <label for="program">Program</label>
+          <select name="program">
+            <!-- Program Tidak Muncul -->
+            <?php
+            $id_program = $row['id_program'];
+            $rows = tampil("SELECT * FROM program");
+            $rows2 = tampil("SELECT * FROM program WHERE id=$id_program")[0];
+            foreach ($rows as $row) :
+            ?>
+              <option <?php if ($row['id'] == $rows2['id']) {
+                        echo "Selected";
+                      } ?> <?php $selected; ?> value="<?= $row['id']; ?>"><?= $row['nama_program']; ?></option>
+            <?php endforeach; ?>
+          </select>
+        </span>
+        <span>
+          <label for="komponen">Komponen</label>
+          <select name="komponen">
+            <?php
+            $rows = tampil("SELECT * FROM komponen");
+            foreach ($rows as $row) :
+            ?>
+              <option value="<?= $row['id']; ?>"><?= $row['nama_komponen']; ?></option>
+            <?php endforeach; ?>
+          </select>
+        </span>
+        <span>
+          <label for="uraian_belanja">Uraian Belanja</label><br>
+          <textarea name="uraian_belanja" id="uraian_belanja" cols="100" rows="10"></textarea>
+        </span>
+        <br>
+        <span>
+          <label for="penyedia">Penyedia</label>
+          <select name="penyedia" id="penyedia">
+            <?Php
+            $rows = tampil("SELECT * FROM penyedia");
+            foreach ($rows as $row) :
+            ?>
+              <option value="<?= $row['id']; ?>"><?= $row['nama_penyedia']; ?></option>
+            <?php endforeach; ?>
+          </select>
+          <a href="penyedia.php">Lihat Data Penyedia</a>
+        </span>
+        <br><br>
+        <span>
+          <label for="kredit">Keluar</label>
+          <input type="number" name="kredit" id="kredit">
+        </span>
+        <br>
+        <input type="submit" value="Tambah" name="tambah_belanja">
+      </form>
+      <br>
+      <br>
+      <a href="transaksi_belanja.php">Kembali ke data Transaksi Belanja</a>
+    <?php endif; ?>
   </main>
   <footer></footer>
 </body>

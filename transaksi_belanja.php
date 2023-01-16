@@ -29,7 +29,7 @@ require 'functions.php';
           <th>Kode Rekening</th>
           <th>Nomor Bukti</th>
           <th>Uraian Belanja</th>
-          <th>Deposit</th>
+          <th>Debit</th>
           <th>Kredit</th>
           <th>Saldo</th>
           <th>Aksi</th>
@@ -60,7 +60,7 @@ require 'functions.php';
             <td><?= $row['saldo_akhir']; ?></td>
             <td>
               <p>
-                <a href="edit.php?jenis=komponen&id=<?= $row['id']; ?>">Edit</a> |
+                <a href="edit.php?jenis=belanja&id=<?= $row['id']; ?>">Edit</a> |
                 <a onclick="return confirm('Apakah anda yakin ingin menghapus <?= $row['uraian_belanja']; ?>')" href="hapus.php?jenis=transaksi_belanja&id=<?= $row['id']; ?>">Hapus</a>
               </p>
             </td>

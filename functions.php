@@ -143,3 +143,27 @@ function hapus_komponen($id)
   return mysqli_affected_rows($conn);
 }
 // Tutup Fungsi Komponen
+
+// Mulai Fungsi Belanja
+function tambah_belanja($post)
+{
+  $conn = koneksi();
+
+  $tgl_transaksi = $post['tgl_transaksi'];
+  $jenis_belanja = $post['jenis_belanja'];
+  $id_jenis_transaksi = $post['jenis_transaksi'];
+  $nomor_bukti = $post['nomor_bukti'];
+  $id_program = $post['program'];
+  $id_komponen = $post['komponen'];
+  $uraian_belanja = $post['uraian_belanja'];
+  $id_penyedia = $post['penyedia'];
+  $saldo_keluar = $post['kredit'];
+
+  $saldo_akhir = 1000000 - $saldo_keluar;
+
+  $sql = "INSERT INTO transaksi VALUES (NULL,'$tgl_transaksi','$jenis_belanja','$id_jenis_transaksi','$nomor_bukti','$id_program','$id_komponen','$uraian_belanja','$id_penyedia',NULL,'$saldo_keluar','$saldo_akhir')";
+  mysqli_query($conn, $sql);
+
+  return mysqli_affected_rows($conn);
+}
+// Tutup Fungsi Belanja
