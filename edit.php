@@ -140,17 +140,19 @@ if (isset($_POST['edit_jenis_transaksi'])) {
         <span>
           <label for="program">Program</label>
           <select name="program">
-            <!-- Program Tidak Muncul -->
+            <!-- Masih belum bisa -->
             <?php
             $id_program = $row['id_program'];
-            $rows = tampil("SELECT * FROM program");
-            $rows2 = tampil("SELECT * FROM program WHERE id=$id_program")[0];
-            foreach ($rows as $row) :
+            $query_option = tampil("SELECT * FROM program");
+            $query_program = tampil("SELECT * FROM program WHERE id = '$id_program'")[0];
+            foreach ($query_option as $query) {
             ?>
-              <option <?php if ($row['id'] == $rows2['id']) {
+              <option <?php if ($query['id'] === $query_program['id']) {
                         echo "Selected";
-                      } ?> <?php $selected; ?> value="<?= $row['id']; ?>"><?= $row['nama_program']; ?></option>
-            <?php endforeach; ?>
+                      } ?> value="<?= $query['id']; ?>"><?= $query['nama_program']; ?></option>
+            <?php
+            }
+            ?>
           </select>
         </span>
         <span>
