@@ -18,6 +18,18 @@ if (isset($_POST['edit_jenis_transaksi'])) {
     document.location.href='komponen.php';
     </script>";
   }
+} elseif (isset($_POST['edit_belanja'])) {
+  if (edit_belanja($_POST) > 0) {
+    echo "<script>alert('Data berhasil diubah');
+    document.location.href='transaksi_belanja.php';
+    </script>";
+  }
+} elseif (isset($_POST['edit_penyedia'])) {
+  if (edit_penyedia($_POST) > 0) {
+    echo "<script>alert('Data berhasil diubah');
+    document.location.href='penyedia.php';
+    </script>";
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -128,72 +140,102 @@ if (isset($_POST['edit_jenis_transaksi'])) {
             <?php
             $id_jenis_transaksi = $row['id_jenis_transaksi'];
             $rows = tampil("SELECT * FROM jenis_transaksi WHERE kode_transaksi = 'Belanja'");
-            $rows2 = tampil("SELECT * FROM jenis_transaksi WHERE id=$id_jenis_transaksi")[0];
-            foreach ($rows as $row) :
+            foreach ($rows as $a) :
             ?>
-              <option <?php if ($row['id'] == $rows2['id']) {
+              <option <?php if ($a['id'] == $id_jenis_transaksi) {
                         echo "Selected";
-                      } ?> <?php $selected; ?> value="<?= $row['id']; ?>"><?= $row['jenis_transaksi']; ?></option>
+                      } ?> value="<?= $a['id']; ?>"><?= $a['jenis_transaksi']; ?></option>
             <?php endforeach; ?>
           </select>
         </span>
         <span>
+          <?php
+          $idProgram = $row['id_program'];
+          $rows = tampil("SELECT * FROM program");
+          ?>
           <label for="program">Program</label>
           <select name="program">
-            <!-- Masih belum bisa -->
-            <?php
-            $id_program = $row['id_program'];
-            $query_option = tampil("SELECT * FROM program");
-            $query_program = tampil("SELECT * FROM program WHERE id = '$id_program'")[0];
-            foreach ($query_option as $query) {
-            ?>
-              <option <?php if ($query['id'] === $query_program['id']) {
+            <?php foreach ($rows as $b) : ?>
+              <option <?php if ($b['id'] == $idProgram) {
                         echo "Selected";
-                      } ?> value="<?= $query['id']; ?>"><?= $query['nama_program']; ?></option>
-            <?php
-            }
-            ?>
+                      } ?> value="<?= $b['id']; ?>"><?= $b['nama_program']; ?></option>
+            <?php endforeach; ?>
           </select>
         </span>
         <span>
           <label for="komponen">Komponen</label>
           <select name="komponen">
             <?php
+            $idKomponen = $row['id_komponen'];
             $rows = tampil("SELECT * FROM komponen");
-            foreach ($rows as $row) :
+            foreach ($rows as $c) :
             ?>
-              <option value="<?= $row['id']; ?>"><?= $row['nama_komponen']; ?></option>
+              <option <?php if ($c['id'] == $idKomponen) {
+                        echo "Selected";
+                      } ?> value="<?= $c['id']; ?>"><?= $c['nama_komponen']; ?></option>
             <?php endforeach; ?>
           </select>
         </span>
         <span>
           <label for="uraian_belanja">Uraian Belanja</label><br>
-          <textarea name="uraian_belanja" id="uraian_belanja" cols="100" rows="10"></textarea>
+          <textarea name="uraian_belanja" id="uraian_belanja" cols="100" rows="10"><?= $row['uraian_belanja']; ?></textarea>
         </span>
         <br>
         <span>
           <label for="penyedia">Penyedia</label>
           <select name="penyedia" id="penyedia">
             <?Php
+            $idPenyedia = $row['id_penyedia'];
             $rows = tampil("SELECT * FROM penyedia");
-            foreach ($rows as $row) :
+            foreach ($rows as $d) :
             ?>
-              <option value="<?= $row['id']; ?>"><?= $row['nama_penyedia']; ?></option>
+              <option <?php if ($d['id'] == $idPenyedia) {
+                        echo "Selected";
+                      } ?> value="<?= $d['id']; ?>"><?= $d['nama_penyedia']; ?></option>
             <?php endforeach; ?>
           </select>
-          <a href="penyedia.php">Lihat Data Penyedia</a>
+          <a href="penyedia.php?id=<?= $row['id']; ?>">Lihat Data Penyedia</a>
         </span>
         <br><br>
         <span>
           <label for="kredit">Keluar</label>
-          <input type="number" name="kredit" id="kredit">
+          <input type="number" name="kredit" id="kredit" value="<?= $row['saldo_keluar']; ?>">
         </span>
         <br>
-        <input type="submit" value="Tambah" name="tambah_belanja">
+        <input type="hidden" name="id" value="<?= $row['id']; ?>">
+        <input type="submit" value="Simpan" name="edit_belanja">
       </form>
       <br>
       <br>
       <a href="transaksi_belanja.php">Kembali ke data Transaksi Belanja</a>
+    <?php endif; ?>
+    <?php if ($_GET['jenis'] == "penyedia") :
+      $id = $_GET['id'];
+      $row = tampil("SELECT * FROM penyedia  WHERE id=$id")[0];
+    ?>
+      <form action="" method="POST">
+        <div>
+          <label for="nama_penyedia">Nama Penyedia</label>
+          <input type="text" name="nama_penyedia" id="nama_penyedia" value="<?= $row['nama_penyedia']; ?>">
+        </div>
+        <div>
+          <label for="alamat">Alamat</label>
+          <br>
+          <textarea name="alamat_penyedia" id="alamat" cols="30" rows="10"><?= $row['alamat_penyedia']; ?></textarea>
+        </div>
+        <div>
+          <label for="telepon_hp">No. Telepon/Hp</label>
+          <input type="text" name="telepon_hp" id="telepon_hp" value="<?= $row['telepon_hp']; ?>">
+        </div>
+        <div>
+          <label for="npwp_penyedia">NPWP</label>
+          <input type="text" name="npwp_penyedia" id="npwp_penyedia" value="<?= $row['npwp_penyedia']; ?>">
+        </div>
+        <div>
+          <input type="hidden" name="id" value="<?= $row['id']; ?>">
+          <input type="submit" value="Simpan" name="edit_penyedia">
+        </div>
+      </form>
     <?php endif; ?>
   </main>
   <footer></footer>

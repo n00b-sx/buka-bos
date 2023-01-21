@@ -166,4 +166,41 @@ function tambah_belanja($post)
 
   return mysqli_affected_rows($conn);
 }
+
+function edit_belanja($post)
+{
+}
 // Tutup Fungsi Belanja
+
+// Mulai Fungsi Penyedia
+function tambah_penyedia($post)
+{
+  $conn = koneksi();
+
+  $nama_penyedia = $post['nama_penyedia'];
+  $alamat_penyedia = $post['alamat_penyedia'];
+  $telepon_hp = $post['telepon_hp'];
+  $npwp_penyedia = $post['npwp_penyedia'];
+
+  $query = "INSERT INTO penyedia VALUES (NULL, $nama_penyedia, $alamat_penyedia, $telepon_hp, $npwp_penyedia)";
+  mysqli_query($conn, $query);
+
+  return mysqli_affected_rows($conn);
+}
+
+function edit_penyedia($post)
+{
+  $conn = koneksi();
+
+  $id = $post['id'];
+  $nama_penyedia = $post['nama_penyedia'];
+  $alamat_penyedia = $post['alamat_penyedia'];
+  $telepon_hp = $post['telepon_hp'];
+  $npwp_penyedia = $post['npwp_penyedia'];
+
+  $query = "UPDATE penyedia SET nama_penyedia = '$nama_penyedia', alamat_penyedia = '$alamat_penyedia', telepon_hp = '$telepon_hp', npwp_penyedia = '$npwp_penyedia' WHERE id=$id";
+  mysqli_query($conn, $query);
+
+  mysqli_affected_rows($conn);
+}
+// Tutup Fungsi Penyedia

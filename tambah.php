@@ -16,6 +16,10 @@ if (isset($_POST['tambah_jenis_transaksi'])) {
   if (tambah_belanja($_POST) > 0) {
     echo "<script>alert('Data berhasil ditambahkan');</script>";
   }
+} elseif (isset($_POST['tambah_penyedia'])) {
+  if (tambah_penyedia($_POST) > 0) {
+    echo "<script>alert('Data berhasil ditambahkan');</script>";
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -166,6 +170,32 @@ if (isset($_POST['tambah_jenis_transaksi'])) {
       <br>
       <br>
       <a href="transaksi_belanja.php">Kembali ke data Transaksi Belanja</a>
+    <?php endif; ?>
+    <?php if ($_GET['tambah'] == "penyedia") : ?>
+      <form action="" method="POST">
+        <div>
+          <label for="nama_penyedia">Nama Penyedia</label>
+          <input type="text" name="nama_penyedia" id="nama_penyedia">
+        </div>
+        <div>
+          <label for="alamat">Alamat</label>
+          <br>
+          <textarea name="alamat" id="alamat" cols="30" rows="10"></textarea>
+        </div>
+        <div>
+          <label for="telepon_hp">No. Telepon/Hp</label>
+          <input type="text" name="telepon_hp" id="telepon_hp">
+        </div>
+        <div>
+          <label for="npwp_penyedia">NPWP</label>
+          <input type="text" name="npwp_penyedia" id="npwp_penyedia">
+        </div>
+        <div>
+          <input type="submit" value="Simpan" name="tambah_penyedia">
+        </div>
+      </form>
+
+      <a href="penyedia.php">Kembali ke data penyedia</a>
     <?php endif; ?>
   </main>
   <footer></footer>
