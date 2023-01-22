@@ -1,15 +1,5 @@
 <?php
 require 'functions.php';
-
-// Pengecekan Autentikasi Login
-if (isset($_POST['login'])) {
-  if (autentikasi($_POST) > 0) {
-    echo "<script>alert('Login Berhasil');</script>";
-    header('location:app/');
-  } else {
-    echo "<script>alert('Login Gagal');</script>";
-  }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +15,8 @@ if (isset($_POST['login'])) {
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
 </head>
@@ -97,11 +89,23 @@ if (isset($_POST['login'])) {
   <!-- /.login-box -->
 
   <!-- jQuery -->
-  <script src="../../plugins/jquery/jquery.min.js"></script>
+  <script src="plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
-  <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
-  <script src="../../dist/js/adminlte.min.js"></script>
+  <script src="dist/js/adminlte.min.js"></script>
+  <!-- Toastr -->
+  <script src="plugins/toastr/toastr.min.js"></script>
 </body>
 
+<?php
+// Pengecekan Autentikasi Login
+if (isset($_POST['login'])) {
+  if (autentikasi($_POST) > 0) {
+    header('location:app/');
+  } else {
+    echo "<script>toastr.error('Password atau Username yang anda masukan salah');</script>";
+  }
+}
+?>
 </html>
