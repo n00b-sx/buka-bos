@@ -16,6 +16,20 @@ function koneksi()
   // return $str;
 }
 
+// Autentikasi Login
+function autentikasi($post)
+{
+  $conn = koneksi();
+
+  $username = $post['username'];
+  $password = $post['password'];
+
+  $sql = "SELECT * FROM tbl_user WHERE username='$username' AND password='$password'";
+  mysqli_query($conn, $sql);
+
+  return mysqli_affected_rows($conn);
+}
+
 function tampil($query)
 {
   $conn = koneksi();

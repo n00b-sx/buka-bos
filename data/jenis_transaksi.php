@@ -1,5 +1,5 @@
 <?php
-require 'functions.php';
+require '../functions.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,7 @@ require 'functions.php';
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Program</title>
+  <title>Input Jenis Transaksi</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -19,29 +19,33 @@ require 'functions.php';
     </ul>
   </header>
   <main>
-    <h1>Data Program</h1>
-    <a href="tambah.php?tambah=program">Tambah Data</a><br>
+    <h1>Input Data Jenis Transaksi</h1>
+    <a href="tambah.php?tambah=jenis_transaksi">Tambah Data</a><br>
     <table class="table">
       <thead>
         <tr>
           <th>No.</th>
-          <th>Nama Program</th>
+          <th>Jenis Transaksi</th>
+          <th>Kode Rekening</th>
+          <th>Keterangan</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
         <?php
-        $rows = tampil("SELECT * FROM program");
+        $rows = tampil("SELECT * FROM jenis_transaksi");
         $i = 1;
         foreach ($rows as $row) :
         ?>
           <tr>
             <td><?= $i++ ?></td>
-            <td><?= $row['nama_program']; ?></td>
+            <td><?= $row['kode_transaksi']; ?></td>
+            <td><?= $row['kode_rekening']; ?></td>
+            <td><?= $row['jenis_transaksi']; ?></td>
             <td>
               <p>
-                <a href="edit.php?jenis=program&id=<?= $row['id']; ?>">Edit</a> |
-                <a onclick="return confirm('Apakah anda yakin ingin menghapus <?= $row['nama_program']; ?>')" href="hapus.php?jenis=program&id=<?= $row['id']; ?>">Hapus</a>
+                <a href="edit.php?jenis=jenis_transaksi&id=<?= $row['id']; ?>">Edit</a> |
+                <a onclick="return confirm('Apakah anda yakin ingin menghapus <?= $row['jenis_transaksi']; ?>')" href="hapus.php?jenis=jenis_transaksi&id=<?= $row['id']; ?>">Hapus</a>
               </p>
             </td>
           </tr>
