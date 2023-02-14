@@ -31,7 +31,7 @@ require 'functions.php';
       <div class="card-body">
         <p class="login-box-msg">Masuk untuk memulai harimu yang indah</p>
 
-        <form action="" method="post">
+        <form action="" method="POST">
           <div class="input-group mb-3">
             <input type="text" class="form-control" placeholder="Username" name="username">
             <div class="input-group-append">

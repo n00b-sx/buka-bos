@@ -84,42 +84,6 @@ function hapus_jenis_transaksi($id)
   return mysqli_affected_rows($conn);
 }
 
-function tambah_program($post)
-{
-  $conn = koneksi();
-
-
-  $nama_program = $post['nama_program'];
-
-  $sql = "INSERT INTO program VALUES (NULL,'$nama_program')";
-  mysqli_query($conn, $sql);
-
-  return mysqli_affected_rows($conn);
-}
-
-function edit_program($post)
-{
-  $conn = koneksi();
-
-  $id = $post['id'];
-  $nama_program = $post['nama_program'];
-
-  $sql = "UPDATE program SET nama_program='$nama_program' WHERE id=$id";
-  mysqli_query($conn, $sql);
-
-  return mysqli_affected_rows($conn);
-}
-
-function hapus_program($id)
-{
-  $conn = koneksi();
-
-  $sql = "DELETE FROM program WHERE id=$id";
-  mysqli_query($conn, $sql);
-
-  return mysqli_affected_rows($conn);
-}
-
 // Fungsi Komponen
 function tambah_komponen($post)
 {

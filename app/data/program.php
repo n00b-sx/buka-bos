@@ -1,4 +1,16 @@
-<?php require '../../functions.php'; ?>
+<?php
+require '../../functions.php';
+require 'functions/functions_program.php';
+
+if (isset($_POST['tambah'])) {
+  if (tambah_program($_POST) > 0) {
+    echo "<script>onload='toastSuccess()'</script>";
+    // header('location:../program.php?status=sukses');
+  } else {
+    // header('location:../program.php?status=error');
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,8 +23,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
@@ -21,19 +31,12 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="../../plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="../../plugins/summernote/summernote-bs4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
-
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-      <img class="animation__shake" src="../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-    </div>
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -79,7 +82,7 @@
                with font-awesome or any other icon font library -->
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <i class="nav-icon fas fa-table-columns"></i>
                 <p>
                   Dashboard
                 </p>
@@ -213,7 +216,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Data Program</h1>
+              <h1 class="m-0">Program</h1>
             </div><!-- /.col -->
             <!-- <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -227,6 +230,7 @@
       <!-- /.content-header -->
 
       <!-- Main content -->
+      <!-- Form Tambah Data -->
       <section class="content">
         <div class="container-fluid">
           <div class="row">
@@ -243,13 +247,18 @@
                     </div>
                   </div>
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary" name="tambah">Submit</button>
+                    <button type="submit" class="btn btn-primary" name="tambah">Tambah</button>
                   </div>
                 </form>
               </div>
             </div>
+
+            <!-- Tabel Data -->
             <div class="col-7">
-              <div class="card">
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Daftar Program</h3>
+                </div>
                 <div class="card-body table-responsive p-0" style="height: 500px;">
                   <table class="table table-head-fixed text-nowrap table-hover">
                     <thead>
@@ -270,9 +279,40 @@
                           <td><?= $program['nama_program']; ?></td>
                           <td>
                             <div class="btn-group">
-                              <a class="btn btn-info">
+                              <a class="btn btn-info" data-toggle="modal" data-target="#modal-default<?= $program['id']; ?>">
                                 <i class="fas fa-light fa-pencil"></i>
                               </a>
+
+                              <!-- modal -->
+                              <div class="modal fade" id="modal-default<?= $program['id']; ?>">
+                                <div class="modal-dialog modal-lg">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Edit Data <?= $program['nama_program']; ?></h4>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form action="" method="POST">
+                                        <div class="form-group">
+                                          <label for="nama_program">Nama Program</label>
+                                          <input type="text" class="form-control" id="nama_program" placeholder="Masukan nama program" name="nama_program" value="<?= $program['nama_program']; ?>">
+                                        </div>
+                                        <input type="hidden" name="id" value="<?= $program['id']; ?>">
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      <button type="submit" class="btn btn-primary" name="edit">Submit</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                  <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                              </div>
+                              <!-- /.modal -->
+
                               <a class="btn btn-danger">
                                 <i class="fas fa-light fa-trash-can"></i>
                               </a>
@@ -299,6 +339,8 @@
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
+
     <footer class="main-footer">
       <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
       All rights reserved.
@@ -325,23 +367,27 @@
   </script>
   <!-- Bootstrap 4 -->
   <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <!-- ChartJS -->
-  <script src="../../plugins/chart.js/Chart.min.js"></script>
-  <!-- Sparkline -->
-  <script src="../../plugins/sparklines/sparkline.js"></script>
-  <!-- jQuery Knob Chart -->
-  <script src="../../plugins/jquery-knob/jquery.knob.min.js"></script>
-  <!-- daterangepicker -->
-  <script src="../../plugins/moment/moment.min.js"></script>
-  <script src="../../plugins/daterangepicker/daterangepicker.js"></script>
   <!-- Tempusdominus Bootstrap 4 -->
   <script src="../../plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-  <!-- Summernote -->
-  <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
   <!-- overlayScrollbars -->
   <script src="../../plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
   <script src="../../dist/js/adminlte.js"></script>
+  <!-- Toastr -->
+  <script src="plugins/toastr/toastr.min.js"></script>
+  <script>
+    var toastSuccess = function() {
+      $(document).Toasts('create', {
+        class: 'bg-success',
+        title: 'Toast Title',
+        autohide: true,
+        delay: 1000,
+        icon: 'fas fa-solid fa-check fa-lg',
+        body: 'Data baru berhasil ditambahkan.'
+      })
+    }
+  </script>
+
 </body>
 
 </html>
