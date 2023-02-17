@@ -33,7 +33,7 @@
           <img src="asset/img/data.jpg" class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">Data Master</h5>
-            <a href="master/master.php" class="btn btn-primary">Masuk</a>
+            <a href="master/index.php?halaman=master" class="btn btn-primary">Masuk</a>
           </div>
         </div>
       </div>
